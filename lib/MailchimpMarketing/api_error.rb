@@ -21,6 +21,8 @@ module MailchimpMarketing
     #   ApiError.new(:status => 404, :message => "Not Found")
     def initialize(arg = nil)
       if arg.is_a? Hash
+        @errors = JSON.parse(arg[:response_body]) if arg.key?(:response_body)
+
         if arg.key?(:message) || arg.key?('message')
           super(arg[:message] || arg['message'])
         else
